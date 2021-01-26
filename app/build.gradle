@@ -1,0 +1,93 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+apply from: "$project.rootDir/configs.gradle"
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion '30.0.3'
+    defaultConfig {
+        applicationId "com.dindinn.customer"
+        minSdkVersion 26
+        targetSdkVersion 30
+        versionCode Versions.versionCode
+        versionName Versions.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    // Koin Dependencies
+    implementation Deps.koin
+    implementation Deps.koinExtension
+    implementation Deps.koinViewModel
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.wear:wear:1.0.0'
+    testImplementation Deps.koinTest
+
+    // Room
+    implementation Deps.room
+    implementation Deps.roomRX
+    implementation Deps.roomKTS
+    compileOnly 'com.google.android.wearable:wearable:2.6.0'
+    kapt Deps.roomCompiler
+    testImplementation Deps.roomTesting
+
+    // MVRX
+    implementation Deps.mvrx
+
+    // Epoxy
+    implementation Deps.epoxy
+    kapt Deps.epoxyAnnotationProcessor
+
+    // Retrofit
+    implementation Deps.retrofit
+    implementation Deps.retrofitConverter
+    implementation Deps.retrofitRxAdapter
+    implementation Deps.okHttp3
+    implementation Deps.okhttp3LogginInterceptor
+
+    // RX
+    implementation Deps.rxAndroid
+    implementation Deps.rxJava
+
+    // Glide
+    implementation Deps.glide
+    kapt Deps.glideAnnotationProcessor
+
+    // ViewPager Indicator
+    implementation Deps.viewPagerIndicator
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}

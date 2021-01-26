@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Dindinn</string>
+    <string name="msg_error">Something went wrong please try again</string>
+</resources>
